@@ -15,13 +15,19 @@ func GetRevenue(c echo.Context) error {
 	start_Date := c.QueryParam("start_date")
 	end_Date := c.QueryParam("end_date")
 
+	if start_Date == "" || end_Date == "" {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"error": "start_date and end_date are required",
+		})
+	}
+
 	startDate, err := utils.ParseDate(start_Date)
 	if err != nil {
-		return err
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
 	endDate, err := utils.ParseDate(end_Date)
 	if err != nil {
-		return err
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
 	db := database.SqlConnect()
@@ -48,13 +54,19 @@ func GetRevenueByProduct(c echo.Context) error {
 	start_Date := c.QueryParam("start_date")
 	end_Date := c.QueryParam("end_date")
 
+	if start_Date == "" || end_Date == "" {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"error": "start_date and end_date are required",
+		})
+	}
+
 	startDate, err := utils.ParseDate(start_Date)
 	if err != nil {
-		return err
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
 	endDate, err := utils.ParseDate(end_Date)
 	if err != nil {
-		return err
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
 	db := database.SqlConnect()
@@ -114,13 +126,19 @@ func GetRevenueByCategory(c echo.Context) error {
 	start_Date := c.QueryParam("start_date")
 	end_Date := c.QueryParam("end_date")
 
+	if start_Date == "" || end_Date == "" {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"error": "start_date and end_date are required",
+		})
+	}
+
 	startDate, err := utils.ParseDate(start_Date)
 	if err != nil {
-		return err
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
 	endDate, err := utils.ParseDate(end_Date)
 	if err != nil {
-		return err
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
 	db := database.SqlConnect()
@@ -176,13 +194,19 @@ func GetRevenueByRegion(c echo.Context) error {
 	start_Date := c.QueryParam("start_date")
 	end_Date := c.QueryParam("end_date")
 
+	if start_Date == "" || end_Date == "" {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"error": "start_date and end_date are required",
+		})
+	}
+
 	startDate, err := utils.ParseDate(start_Date)
 	if err != nil {
-		return err
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
 	endDate, err := utils.ParseDate(end_Date)
 	if err != nil {
-		return err
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
 	db := database.SqlConnect()

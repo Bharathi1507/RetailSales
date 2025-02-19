@@ -30,15 +30,16 @@ func ProcessCsvData(filepath string) error {
 
 	file, err := os.Open(filepath)
 	if err != nil {
-		fmt.Println(err)
-		// ÷\	return "", err
+		log.Printf("Error in opening the file %v", err)
+		return err
 	}
 	defer file.Close()
 	// Read CSV data
 	reader := csv.NewReader(file)
 	records, err := reader.ReadAll()
 	if err != nil {
-		panic(err)
+		log.Printf("Error in reading the contents in file %v", err)
+		return err
 	}
 	var products []models.Product
 	var customers []models.Customer
@@ -128,7 +129,7 @@ func ProcessCsvData(filepath string) error {
 		}
 	}
 
-	log.Printf("Inserted OrderID  successfully!\n")
+	log.Printf("Inserted OrderID successfully!\n")
 	return nil
 
 }
@@ -137,7 +138,7 @@ func RunCronJob() {
 
 	c := cron.New(cron.WithSeconds()) // Use cron with seconds
 
-	// Schedule the job at 12:30 AM (HH:MM:SS -> 00:15:00) everyday
+	// Schedule the job at 12:30 AM (HH:MM:SS -> 00:30:00) everyday
 	_, err := c.AddFunc("0 30 0 * * *", func() {
 		ProcessCsvData("data.csv")
 	})
